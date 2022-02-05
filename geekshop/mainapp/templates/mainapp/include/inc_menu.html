@@ -1,0 +1,49 @@
+<div class="header clearfix">
+	<a href="{% url 'index' %}"  class="logo"></a>
+	<ul class="menu">
+		{%  for link in menu_links %}
+			<li>
+				<a href="{% url link.href %}"
+				   {% with url=request.resolver_match.view_name %}
+				   {% if url in link.active_if %}
+				   		class="active"
+				   {% endif %}>
+				   {% endwith %}
+				{{ link.name }}
+				</a>
+			</li>
+		{% endfor %}
+		{% if user.is_authenticated %}
+			<li>
+				<a href="{% url 'auth:edit' %}">
+					{{ user.first_name|default:'Пользователь' }}
+				</a>
+			</li>
+		<li>
+			<a href="{% url 'auth:logout' %}">выйти</a>
+		</li>
+		{% else %}
+		<li>
+			<a href="{% url 'auth:login' %}">войти</a>
+		</li>
+		<li>
+			<a href="{% url 'auth:register' %}">регистрация</a>
+		</li>
+		{% endif %}
+		{% if user.is_superuser %}
+			<li>
+			<a href="{% url 'admin:users' %}">админка</a>
+			</li>
+		{% endif %}
+		<li>
+        	<a href="{% url 'cart:view' %}">Корзина
+            {% if request.user.cart.has_items %}
+                ({{ request.user.cart.amount }} шт, {{ request.user.cart.total_cost }} руб)
+            {% endif %}
+            </a>
+   		</li>
+	</ul>
+
+</div>
+
+

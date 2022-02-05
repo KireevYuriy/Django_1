@@ -1,0 +1,21 @@
+<div class="products_list">
+    <div class="title clearfix">
+        <h2>
+            Категория: "{{ selected_category.name|title }}"
+        </h2>
+    </div>
+    <div class="category-products clearfix">
+        {% for product in products %}
+            <div class="block">
+                <a href="{% url 'cart:add_to_cart' product.pk %}">
+                    <img src="/media/{{ product.image }}" alt="{{ product.shot_desk }}">
+                    <div class="text">
+                        <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                        <h4>{{ product.name }}</h4>
+                        <p>{{ product.description }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
