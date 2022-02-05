@@ -1,0 +1,34 @@
+{% extends 'mainapp/base.html '%}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block menu %}
+{% include 'mainapp/include/inc_menu.html' %}
+{% endblock %}
+{% block content %}
+<div class="details">
+    <div class="links clearfix">
+        {% include 'mainapp/include/inc_categories_menu.html' %}
+    </div>
+    <div class="details-products">
+        {% if products %}
+        <div class="details-slider">
+            <div class="slider-product">
+                <img src="/media/{{ hot_product.image }}">
+            </div>
+        </div>
+        <div class="description">
+            <h3 class="big-bold">{{ hot_products.name }}</h3>
+			<h3 class="red">{{ hot_products.short_desc }}</h3>
+			<p class="price"> {{ hot_products.price }} <span>руб</span></p>
+			<a href="{% url 'cart:add_to_cart' hot_product.id %}" class="red-button">
+				заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
+			</a>
+			<div class="description-text">
+				{{ products.0.description|linebreaks }}
+			</div>
+        {% else %}
+        </div>
+    </div>
+</div>

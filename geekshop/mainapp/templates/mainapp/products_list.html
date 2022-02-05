@@ -1,0 +1,43 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+{% block menu %}
+    <div class="hero-white">
+        <div class="header clearfix">
+        {% include 'mainapp/include/inc_menu.html' %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="details">
+        <div class="links clearfix">
+            {% include 'mainapp/include/inc_categories_menu.html' %}
+        </div>
+
+        <div class="products_list">
+            <div class="title clearfix">
+                <h2>
+                    Категория: "{{ selected_category.name|title }}"
+                </h2>
+            </div>
+
+            <div class="category-products clearfix">
+                {% for product in products %}
+                <div class="block">
+                    <a href="{% url 'cart:add' product.pk %}">
+                        <img class='product-image' src="/media/{{ product.image }}" alt="{{ product.shot_desk }}">
+                        <div class="text">
+                            <img src="{% static 'img/icon-hover.png' %}" alt="img">
+                            <h3>{{ product.category.name }}</h3>
+                            <h4>{{ product.name }}</h4>
+                            <p>{{ product.description }} </p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="clr"></div>
+{% endblock %}
